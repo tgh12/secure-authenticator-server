@@ -1,0 +1,136 @@
+body {
+	background-image:url('../img/space.jpg');
+	background-repeat:repeat;
+}
+
+.mainHeader {	
+	color: white;
+
+	font-family: "Helvetica Neue","Arial",sans-serif;
+	font-weight: 200;
+	font-size: 45px;
+
+	text-align: center;
+	margin-top: 170px;
+}
+
+.subHeader {
+	color: white;
+
+	font-family: "Helvetica Neue","Arial",sans-serif;
+	font-weight: 200;
+	font-size: 25px;
+
+	text-align: center;
+	
+	margin-top: 40px;
+	margin-left: 120px;
+	margin-right: 120px;
+}
+
+.mainButton {
+	position: absolute;
+
+	width: 150px;
+	height: 45px;
+	border-radius: 10px;
+
+	background-color: #EEEEEE;
+	color: #282828;
+
+	text-align: center;
+	text-shadow: 1px 1px 0px #FFFFFF;
+	font-family: "Open Sans","Trebuchet MS",sans-serif;
+	font-size: 27px;
+}
+
+.redirectButton {
+	position: relative;
+
+
+	margin-left: 50%;
+	left: -150px;
+	top: 20px;
+
+	width: 300px;
+	height: 45px;
+	border-radius: 10px;
+
+	background-color: #EEEEEE;
+	color: #282828;
+
+	text-align: center;
+	text-shadow: 1px 1px 0px #FFFFFF;
+	font-family: "Open Sans","Trebuchet MS",sans-serif;
+	font-size: 27px;
+}
+
+#registerButton {
+	top: 300px;
+	left: 35%;
+}
+
+#loginButton {
+	top: 300px;
+	right: 35%;
+}
+
+.inputWindow {
+	position: absolute;
+
+	width: 450px;
+	height: 280px;
+
+	border-radius: 15px;
+	box-shadow: 0px 0px 0px 5px rgba(255,255,255,0.3); 
+
+	background-color: #DDDDDD;
+
+	top:160px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+#cancelButton {
+	position: absolute;
+
+	top:150px;
+	left: -450px;
+	right: 0;
+	margin: auto;
+
+	width: 17px;
+	height: 17px;
+
+	background-color: black;
+	border-style: solid;
+	border-color: white;
+
+	border-radius: 50px;
+}
+
+form {
+	margin-left: 30px;
+
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+	font-family: "Helvetica Neue","Arial",sans-serif;
+	font-size: 30px;
+}
+
+input {
+	/*
+	position: absolute;
+
+	left: 0;
+	right: 0;
+	margin: auto;
+	*/
+	width: 150px;
+	height: 30px;
+
+	border-radius: 10px;
+}
+*/
