@@ -52,7 +52,21 @@ public class LoginHandler extends HttpServlet {
         	if(resultSet.next()) {        		
         		if(username.equals(resultSet.getString(2))) {        			
         			if(BCrypt.checkpw(password, resultSet.getString(3))) {
-        				if(!otp.equals("")) { //Modify this condition in the future to check OTP 
+        				int currTime = (int) Math.floor(System.currentTimeMillis() / 30000);        				
+        				byte[] otpSeed = resultSet.getString(4).getBytes("UTF-8");
+        				
+        				String otp1 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, currTime)).toString());
+        				
+        				/*
+        				 * If the first OTP doesn't match, there is the possibility that this is becuase the phone's
+        				 * clock is not synchronized with the server's. In order to compensate for unsynchronized
+        				 * clocks, the server will check one time counter behind and one time counter ahead in case
+        				 * it finds a match there. 
+        				 */
+        				String otp2 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, currTime - 1)).toString());
+        				String otp3 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, currTime + 1)).toString());
+        				
+        				if(otp.equals(otp1) || otp.equals(otp2) || otp.equals(otp3)) { //Check OTP across 3 time counters 
         					request.getRequestDispatcher("/loginSuccess.html").include(request, response);
         				} else {
         					request.getRequestDispatcher("/wrongOTP.html").include(request, response);
@@ -74,5 +88,13 @@ public class LoginHandler extends HttpServlet {
 	        // invalid request
 	        response.getWriter().println("ERROR:Error processing request: "+e.getMessage());
 	    }
+  }
+  
+  public String appendZeros(String s) {
+	  if(s.length() < 6) {
+		  return(appendZeros("0".concat(s)));
+	  } else {
+		  return s;
+	  }
   }
 }
