@@ -12,9 +12,10 @@
 
 		<div id="registerWindow" class="inputWindow">
 			<form id="register" action="https://localhost:8443/SecureAuthenticatorServer/register" method="post">
-				Username: <input type="text" name="registerUsername">
-				Password: <input type="password" name="registerPassword">
-				Confirm Password: <input type="password" name="confirmPassword">
+	
+				<input type="text" name="registerUsername" placeholder="Username" class="input1">
+				<input type="password" name="registerPassword" placeholder="Password" class="input2">			
+				<input type="password" name="confirmPassword" placeholder="Confirm Password" class="input3">
 			</form>
 		</div>
 
@@ -24,9 +25,10 @@
 
 		<div id="loginWindow" class="inputWindow">
 			<form id="login" action="https://localhost:8443/SecureAuthenticatorServer/login" method="post">
-				Username: <input type="text" name="loginUsername">
-				Password: <input type="password" name="loginPassword">
-				OTP: <input type="text" name="OTP">
+				
+				<input type="text" name="loginUsername" placeholder="Username" class="input1">
+				<input type="password" name="loginPassword" placeholder="Password" class="input2">
+				<input type="text" name="OTP" placeholder="6-Digit Code" class="input3">
 			</form>
 		</div>
 

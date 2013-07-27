@@ -19,7 +19,7 @@ $(function() {
 			$("#greetingHeader").fadeOut(300);
 
 			$("#registerButton").animate({
-				top: '375px',
+				top: '365px',
 				left: '50%',
 				marginLeft: '-75px'
 			});
@@ -42,7 +42,7 @@ $(function() {
 			$("#greetingHeader").fadeOut(300);
 
 			$("#loginButton").animate({
-				top: '375px',
+				top: '366px',
 				right: '50%',
 				marginRight: '-75px'
 			});
