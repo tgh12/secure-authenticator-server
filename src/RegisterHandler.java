@@ -23,7 +23,9 @@ public class RegisterHandler extends HttpServlet {
   		throws IOException{
 	  try
 	    {               	    	
-	        Enumeration<?> keys = request.getParameterNames();
+	        System.out.println("Register Request Received");
+		  
+		  	Enumeration<?> keys = request.getParameterNames();
 	    	
 	    	String username = "", passwordHash = "", confirmPasswordHash = "";
 	        
@@ -57,7 +59,7 @@ public class RegisterHandler extends HttpServlet {
     	        	
     	        	storeAccount.setString(1, username);
     	        	storeAccount.setString(2, passwordHash);
-    	        	storeAccount.setString(3, "my absolutely ridiculously testingly secret key"); //Temporary OTP for Testing Purposes
+    	        	storeAccount.setString(3, "");
     	        	
     	        	storeAccount.executeUpdate();
     	        	

@@ -23,7 +23,9 @@ public class LoginHandler extends HttpServlet {
   		throws IOException{
 	  try
 	    {               	    	
-	        Enumeration<?> keys = request.getParameterNames();
+	        System.out.println("Login Request Received");
+		  
+		  	Enumeration<?> keys = request.getParameterNames();
 	    	
 	    	String username = "", password = "", otp = "";
 	        
@@ -33,7 +35,7 @@ public class LoginHandler extends HttpServlet {
 	        	if(key.equals("loginUsername")) {
 	        		username = request.getParameterValues(key)[0];
 	        	} else if(key.equals("loginPassword")) {
-	        		password = request.getParameterValues(key)[0];;
+	        		password = request.getParameterValues(key)[0];
 	        	} else if(key.equals("OTP")) {
 	        		otp = request.getParameterValues(key)[0];
 	        	}
@@ -52,10 +54,11 @@ public class LoginHandler extends HttpServlet {
         	if(resultSet.next()) {        		
         		if(username.equals(resultSet.getString(2))) {        			
         			if(BCrypt.checkpw(password, resultSet.getString(3))) {
+        				String seed = resultSet.getString(4);
         				int currTime = (int) Math.floor(System.currentTimeMillis() / 30000);        				
-        				byte[] otpSeed = resultSet.getString(4).getBytes("UTF-8");
+        				byte[] otpSeed = seed.getBytes("UTF-8");
         				
-        				String otp1 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, currTime)).toString());
+        				String otp1 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, (long) currTime * 30)).toString());
         				
         				/*
         				 * If the first OTP doesn't match, there is the possibility that this is becuase the phone's
@@ -63,8 +66,9 @@ public class LoginHandler extends HttpServlet {
         				 * clocks, the server will check one time counter behind and one time counter ahead in case
         				 * it finds a match there. 
         				 */
-        				String otp2 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, currTime - 1)).toString());
-        				String otp3 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, currTime + 1)).toString());
+        				
+        				String otp2 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, (currTime - 1) * 30)).toString());
+        				String otp3 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, (currTime + 1) * 30)).toString());
         				
         				if(otp.equals(otp1) || otp.equals(otp2) || otp.equals(otp3)) { //Check OTP across 3 time counters 
         					request.getRequestDispatcher("/loginSuccess.html").include(request, response);
