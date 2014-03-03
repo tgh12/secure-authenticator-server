@@ -44,10 +44,10 @@ public class RegisterHandler extends HttpServlet {
 	        }
 	        
 	        Class.forName("org.gjt.mm.mysql.Driver");
-        	connect = DriverManager.getConnection("jdbc:mysql://localhost/prototype", "root", "");
+        	connect = DriverManager.getConnection("jdbc:mysql://localhost/thesis", "root", "");
         	
         	//Check for existing username
-        	findUsername = connect.prepareStatement("select USERNAME from PROTOTYPE.ACCOUNT where USERNAME=?");
+        	findUsername = connect.prepareStatement("select USERNAME from THESIS.ACCOUNT where USERNAME=?");
         	findUsername.setString(1, username);
             
         	resultSet = findUsername.executeQuery();
@@ -55,7 +55,7 @@ public class RegisterHandler extends HttpServlet {
         	//If the query returns nothing, the username is available for registration
         	if(!resultSet.next()) { 
         		if(passwordHash.equals(confirmPasswordHash)) {
-    	        	storeAccount = connect.prepareStatement("insert into PROTOTYPE.ACCOUNT values(default,?,?,?)");
+    	        	storeAccount = connect.prepareStatement("insert into THESIS.ACCOUNT values(default,?,?,?)");
     	        	
     	        	storeAccount.setString(1, username);
     	        	storeAccount.setString(2, passwordHash);

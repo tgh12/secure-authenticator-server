@@ -42,10 +42,10 @@ public class LoginHandler extends HttpServlet {
 	        }
 	        
 	        Class.forName("org.gjt.mm.mysql.Driver");
-        	connect = DriverManager.getConnection("jdbc:mysql://localhost/prototype", "root", "");
+        	connect = DriverManager.getConnection("jdbc:mysql://localhost/thesis", "root", "");
         	
         	//Check for existing account
-        	findUsername = connect.prepareStatement("select * from PROTOTYPE.ACCOUNT where USERNAME=?");
+        	findUsername = connect.prepareStatement("select * from THESIS.ACCOUNT where USERNAME=?");
         	findUsername.setString(1, username);
             
         	resultSet = findUsername.executeQuery();
@@ -58,7 +58,7 @@ public class LoginHandler extends HttpServlet {
         				int currTime = (int) Math.floor(System.currentTimeMillis() / 30000);        				
         				byte[] otpSeed = seed.getBytes("UTF-8");
         				
-        				String otp1 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, (long) currTime * 30)).toString());
+        				String otp1 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, (long) currTime)).toString());
         				
         				/*
         				 * If the first OTP doesn't match, there is the possibility that this is becuase the phone's
@@ -67,8 +67,10 @@ public class LoginHandler extends HttpServlet {
         				 * it finds a match there. 
         				 */
         				
-        				String otp2 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, (currTime - 1) * 30)).toString());
-        				String otp3 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, (currTime + 1) * 30)).toString());
+        				String otp2 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, (long)(currTime - 1))).toString());
+        				String otp3 = appendZeros(Integer.valueOf(TOTP.generateTOTP(otpSeed, (long)(currTime + 1))).toString());
+        				
+        				System.out.println(seed + " " + otp1 + " " + otp2 + " " + otp3);
         				
         				if(otp.equals(otp1) || otp.equals(otp2) || otp.equals(otp3)) { //Check OTP across 3 time counters 
         					request.getRequestDispatcher("/loginSuccess.html").include(request, response);

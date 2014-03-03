@@ -42,10 +42,10 @@ public class EnrollHandler extends HttpServlet {
     		}
 	        
 	        Class.forName("org.gjt.mm.mysql.Driver");
-        	connect = DriverManager.getConnection("jdbc:mysql://localhost/prototype", "root", "");
+        	connect = DriverManager.getConnection("jdbc:mysql://localhost/thesis", "root", "");
         	
         	//Check for existing account
-        	findUsername = connect.prepareStatement("select * from PROTOTYPE.ACCOUNT where USERNAME=?");
+        	findUsername = connect.prepareStatement("select * from THESIS.ACCOUNT where USERNAME=?");
         	findUsername.setString(1, username);
             
         	resultSet = findUsername.executeQuery();
@@ -60,7 +60,7 @@ public class EnrollHandler extends HttpServlet {
         				seed = new BigInteger(160,random).toString(32);
         				
         				//Store seed in account
-        				storeSeed = connect.prepareStatement("update PROTOTYPE.ACCOUNT set OTPSEED=? where USERNAME=?");
+        				storeSeed = connect.prepareStatement("update THESIS.ACCOUNT set OTPSEED=? where USERNAME=?");
         				storeSeed.setString(1, seed);
         				storeSeed.setString(2, username);
         				
